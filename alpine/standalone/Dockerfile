@@ -8,6 +8,8 @@ ENV ANDROID_SDK_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK /opt/android-sdk-linux
+ENV SONAR_SCANNER_VERSION=3.2.0.1227
+ENV SONAR_SCANNER_HOME=/opt/sonar-scanner-msbuild
 
 # Install Required Tools
 RUN apk -U update && apk -U add \
@@ -45,5 +47,12 @@ COPY licenses /opt/licenses
 # Working Directory
 WORKDIR /opt/android-sdk-linux
 
-RUN /opt/tools/entrypoint.sh built-in
-CMD /opt/tools/entrypoint.sh built-in
+RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-#{SONAR_SCANNER_VERSION}-linux.zip -O /opt/sonar-scanner-cli-linux.zip \
+  && mkdir -p $SONAR_SCANNER_HOME \
+  && unzip /opt/sonar-scanner-cli-linux.zip -d ${SONAR_SCANNER_HOME} \
+  && rm /opt/sonar-scanner-cli-linux.zip 
+
+ENV PATH="$SONAR_SCANNER_HOME/bin:${PATH}"
+
+# RUN /opt/tools/entrypoint.sh built-in
+# CMD /opt/tools/entrypoint.sh built-in
