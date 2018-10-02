@@ -9,7 +9,7 @@ ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK /opt/android-sdk-linux
 ENV SONAR_SCANNER_VERSION=3.2.0.1227
-ENV SONAR_SCANNER_HOME=/opt/sonar-scanner-msbuild
+ENV SONAR_SCANNER_HOME=/opt/sonar-scanner
 
 # Install Required Tools
 RUN apk -U update && apk -U add \
